@@ -12,3 +12,34 @@
 i.icon {
   margin: 0;
 }
+
+.activity-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.activity {
+  flex: 1 1 calc(50% - 20px);
+  border: 2px dotted grey;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.content {
+  margin-top: 10px;
+  font-size: 90%;
+  color: grey;
+}
+
+.content > * {
+  display: block;
+}
+
+@media screen and (min-width: 1024px) {
+  .activity {
+    flex: 1 1 calc(20% - 20px);
+  }
+}

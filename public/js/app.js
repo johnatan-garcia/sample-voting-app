@@ -23,9 +23,7 @@ class ProductList extends React.Component {
   }
 
   render() {
-    const products = this.state.products.sort((a, b) => (
-      b.votes - a.votes
-    ));
+    const products = this.state.products;
     const productComponents = products.map((product) => (
       <Product
         key={'product-' + product.id}
@@ -37,10 +35,11 @@ class ProductList extends React.Component {
         submitterAvatarUrl={product.submitterAvatarUrl}
         productImageUrl={product.productImageUrl}
         onVote={this.handleProductUpVote}
+        members={product.members}
       />
     ));
     return (
-      <div className='ui unstackable items'>
+      <div className='activity-container'>
         {productComponents}
       </div>
     );
@@ -53,29 +52,16 @@ class Product extends React.Component {
   }
 
   render() {
+    var myMembers = this.props.members || [];
+    var members = myMembers.map(function(i) {
+      return <span className="member">{i}</span>
+    });
     return (
-      <div className='item'>
-        <div className='image'>
-          <img src={this.props.productImageUrl} />
-        </div>
-        <div className='middle aligned content'>
-          <div className='header'>
-            <a onClick={this.handleUpVote}>
-              <i className='large caret up icon' />
-            </a>
-            {this.props.votes}
-          </div>
-          <div className='description'>
-            <a>{this.props.title}</a>
-            <p>{this.props.description}</p>
-          </div>
-          <div className='extra'>
-            <span>Submitted by:</span>
-            <img
-              className='ui avatar image'
-              src={this.props.submitterAvatarUrl}
-            />
-          </div>
+      <div className='activity' onClick={this.handleUpVote}>
+        <h2>{this.props.title}</h2>
+        <span>Current: {this.props.votes}</span>
+        <div className='content'>
+          {members}
         </div>
       </div>
     );
