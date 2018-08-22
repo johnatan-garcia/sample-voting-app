@@ -4,7 +4,18 @@ class ProductList extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({ products: Seed.products });
+    let storedProducts = localStorage.products;
+    let currentProducts = Seed.products;
+
+    if (storedProducts) currentProducts = JSON.parse(storedProducts);
+    this.setState({ products: currentProducts });
+  }
+
+  handleReset = () => {
+    localStorage.removeItem('products');
+    let currentProducts = Seed.products;
+
+    this.setState({ products: currentProducts });
   }
 
   handleProductUpVote = (productId) => {
@@ -17,6 +28,8 @@ class ProductList extends React.Component {
         return product;
       }
     });
+
+    localStorage.setItem('products', JSON.stringify(nextProducts));
     this.setState({
       products: nextProducts,
     });
@@ -39,8 +52,11 @@ class ProductList extends React.Component {
       />
     ));
     return (
-      <div className='activity-container'>
-        {productComponents}
+      <div>
+        <button className="reset" onClick={this.handleReset}>Reset</button>
+        <div className='activity-container'>
+          {productComponents}
+        </div>
       </div>
     );
   }
@@ -54,12 +70,12 @@ class Product extends React.Component {
   render() {
     var myMembers = this.props.members || [];
     var members = myMembers.map(function(i) {
-      return <span className="member">{i}</span>
+      return <span className="member" key={i}>{i}</span>
     });
     return (
       <div className='activity' onClick={this.handleUpVote}>
         <h2>{this.props.title}</h2>
-        <span>Current: {this.props.votes}</span>
+        <span className="totalVotes">{this.props.votes}</span>
         <div className='content'>
           {members}
         </div>

@@ -21,11 +21,15 @@ i.icon {
 
 .activity {
   flex: 1 1 calc(50% - 20px);
+  max-width: calc(50% - 20px);
   border: 2px dotted grey;
   padding: 10px;
   margin: 10px;
   cursor: pointer;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 165px;
 }
 
 .content {
@@ -36,10 +40,49 @@ i.icon {
 
 .content > * {
   display: block;
+  line-height: 1.25;
+}
+
+img.logo {
+  display: block;
+  margin: 20px auto 0;
+}
+
+h1 {
+  margin-top: 0;
+  display: block;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+.totalVotes {
+  font-size: 8rem;
+  color: #51c6c7;
+  z-index: -1;
+  bottom: 30px;
+  right: -8px;
+  position: absolute;
+  text-align: right;
 }
 
 @media screen and (min-width: 1024px) {
   .activity {
     flex: 1 1 calc(20% - 20px);
+    max-width: calc(20% - 20px);
   }
+}
+
+button.reset {
+  border: 0;
+  background: red;
+  font-size: 0;
+  height: 5px;
+  width: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: block;
 }
